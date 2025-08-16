@@ -10,8 +10,10 @@
     cheatMenu.style.fontFamily = "Arial";
     cheatMenu.style.borderRadius = "10px";
     cheatMenu.style.boxShadow = "0 0 10px #000";
+    cheatMenu.style.cursor = "move";
+    cheatMenu.setAttribute("id", "cheatMenu");
     cheatMenu.innerHTML = `
-        <h3 style="margin-top:0">🍪 Cheat Menu</h3>
+        <h3 style="margin-top:0;cursor:grab;">🍪 Cheat Menu</h3>
         <button onclick="Game.cookies=999999999999" style="margin:5px">💰 Max Cookies</button><br>
         <button onclick="Game.UpgradesById.forEach(u=>{u.unlock();u.buy();})" style="margin:5px">🔓 All Upgrades</button><br>
         <button onclick="Game.ObjectsById.forEach(o=>{o.amount=100;o.buy();})" style="margin:5px">🏭 100 of Each Building</button><br>
@@ -21,4 +23,28 @@
         <button onclick="this.parentElement.remove()" style="margin:5px;color:red">❌ Close Menu</button>
     `;
     document.body.appendChild(cheatMenu);
+
+    // Make it draggable
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    cheatMenu.addEventListener("mousedown", function(e) {
+        isDragging = true;
+        offsetX = e.clientX - cheatMenu.getBoundingClientRect().left;
+        offsetY = e.clientY - cheatMenu.getBoundingClientRect().top;
+        cheatMenu.style.cursor = "grabbing";
+    });
+
+    document.addEventListener("mousemove", function(e) {
+        if (isDragging) {
+            cheatMenu.style.top = (e.clientY - offsetY) + "px";
+            cheatMenu.style.left = (e.clientX - offsetX) + "px";
+            cheatMenu.style.right = "auto"; // Disable right positioning while dragging
+        }
+    });
+
+    document.addEventListener("mouseup", function() {
+        isDragging = false;
+        cheatMenu.style.cursor = "move";
+    });
 })();
