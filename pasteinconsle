@@ -1,0 +1,24 @@
+(function() {
+    const cheatMenu = document.createElement("div");
+    cheatMenu.style.position = "fixed";
+    cheatMenu.style.top = "10px";
+    cheatMenu.style.right = "10px";
+    cheatMenu.style.padding = "15px";
+    cheatMenu.style.backgroundColor = "rgba(0,0,0,0.8)";
+    cheatMenu.style.color = "white";
+    cheatMenu.style.zIndex = 10000;
+    cheatMenu.style.fontFamily = "Arial";
+    cheatMenu.style.borderRadius = "10px";
+    cheatMenu.style.boxShadow = "0 0 10px #000";
+    cheatMenu.innerHTML = `
+        <h3 style="margin-top:0">🍪 Cheat Menu</h3>
+        <button onclick="Game.cookies=999999999999" style="margin:5px">💰 Max Cookies</button><br>
+        <button onclick="Game.UpgradesById.forEach(u=>{u.unlock();u.buy();})" style="margin:5px">🔓 All Upgrades</button><br>
+        <button onclick="Game.ObjectsById.forEach(o=>{o.amount=100;o.buy();})" style="margin:5px">🏭 100 of Each Building</button><br>
+        <button onclick="Game.AchievementsById.forEach(a=>a.unlock())" style="margin:5px">🏆 Unlock All Achievements</button><br>
+        <button onclick="Game.cookiesPs=1000000" style="margin:5px">⚡ Set CPS to 1M</button><br>
+        <button onclick="Game.Win('Cheated cookies taste awful')" style="margin:5px">😈 Add Cheater Achievement</button><br>
+        <button onclick="this.parentElement.remove()" style="margin:5px;color:red">❌ Close Menu</button>
+    `;
+    document.body.appendChild(cheatMenu);
+})();
